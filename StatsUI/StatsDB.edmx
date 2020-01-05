@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="statsModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\User\source\repos\FootballStats\StatsDB.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="games">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="team1" Type="integer" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_games_0_0">
+          <End Role="team" Type="Self.team" Multiplicity="0..1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="statsModelStoreContainer">
+          <EntitySet Name="games" EntityType="Self.games" store:Type="Tables" />
+          <EntitySet Name="team" EntityType="Self.team" store:Type="Tables" />
+          <AssociationSet Name="FK_games_0_0" Association="Self.FK_games_0_0">
+            <End Role="team" EntitySet="team" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="statsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="team1" Type="Int64" />
+          <NavigationProperty Name="team" Relationship="Self.FK_games_0_0" FromRole="games" ToRole="team" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="games" Relationship="Self.FK_games_0_0" FromRole="team" ToRole="games" />
+        </EntityType>
+        <Association Name="FK_games_0_0">
+          <End Role="team" Type="Self.team" Multiplicity="0..1" />
+          <End Role="games" Type="Self.game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="statsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="games" EntityType="Self.game" />
+          <EntitySet Name="teams" EntityType="Self.team" />
+          <AssociationSet Name="FK_games_0_0" Association="Self.FK_games_0_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="statsModelStoreContainer" CdmEntityContainer="statsEntities">
+          <EntitySetMapping Name="games">
+            <EntityTypeMapping TypeName="statsModel.game">
+              <MappingFragment StoreEntitySet="games">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="team1" ColumnName="team1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="statsModel.team">
+              <MappingFragment StoreEntitySet="team">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
