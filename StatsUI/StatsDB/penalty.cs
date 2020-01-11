@@ -7,16 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StatsUI
+namespace StatsUI.StatsDB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class game
+    public partial class penalty
     {
-        public long Id { get; set; }
-        public Nullable<long> team1 { get; set; }
+        public long id { get; set; }
+        public Nullable<long> game { get; set; }
+        public Nullable<long> player { get; set; }
+        public Nullable<System.DateTime> time { get; set; }
     
-        public virtual team team { get; set; }
+        public virtual game game1 { get; set; }
+        public virtual player player1 { get; set; }
     }
 }

@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatsUI", "StatsUI\StatsUI.csproj", "{0B08574F-50D0-448D-BC83-3D33FDEADF8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatsDB", "StatsDB\StatsDB.csproj", "{F45EC032-BD04-474D-8C07-32CE2775F07F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{0B08574F-50D0-448D-BC83-3D33FDEADF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B08574F-50D0-448D-BC83-3D33FDEADF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B08574F-50D0-448D-BC83-3D33FDEADF8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F45EC032-BD04-474D-8C07-32CE2775F07F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F45EC032-BD04-474D-8C07-32CE2775F07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F45EC032-BD04-474D-8C07-32CE2775F07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F45EC032-BD04-474D-8C07-32CE2775F07F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -76,6 +76,48 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StatsDB\game.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\goal.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\pass.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\penalty.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\player.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\players_games.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\referee.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\StatsDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatsDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\StatsDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsDB\StatsDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatsDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="StatsXML\parseXML.cs" />
+    <Compile Include="StatsXML\XMLobjects.cs" />
+    <Compile Include="StatsDB\team.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\Logger.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +154,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="StatsDB\StatsDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StatsDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="StatsDB\StatsDB.edmx.diagram">
+      <DependentUpon>StatsDB.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -119,6 +168,19 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="StatsDB\StatsDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StatsDB.edmx</DependentUpon>
+      <LastGenOutput>StatsDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="StatsDB\StatsDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StatsDB.edmx</DependentUpon>
+      <LastGenOutput>StatsDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StatsUI
+namespace StatsUI.StatsDB
 {
     using System;
     using System.Data.Entity;
@@ -26,6 +26,12 @@ namespace StatsUI
         }
     
         public virtual DbSet<game> games { get; set; }
+        public virtual DbSet<goal> goals { get; set; }
+        public virtual DbSet<pass> passes { get; set; }
+        public virtual DbSet<penalty> penalties { get; set; }
+        public virtual DbSet<player> players { get; set; }
+        public virtual DbSet<players_games> players_games { get; set; }
+        public virtual DbSet<referee> referees { get; set; }
         public virtual DbSet<team> teams { get; set; }
     }
 }

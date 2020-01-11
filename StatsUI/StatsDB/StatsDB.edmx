@@ -1,0 +1,927 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="statsModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Users\User\source\repos\FootballStats\StatsDB.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="games">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" />
+          <Property Name="place" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="team1" Type="integer" Nullable="false" />
+          <Property Name="team2" Type="integer" Nullable="false" />
+          <Property Name="points_team1" Type="integer" />
+          <Property Name="points_team2" Type="integer" />
+          <Property Name="referee_main" Type="integer" />
+          <Property Name="referee_assist1" Type="integer" />
+          <Property Name="referee_assis2" Type="integer" />
+          <Property Name="spectators" Type="integer" />
+        </EntityType>
+        <EntityType Name="goals">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="game" Type="integer" />
+          <Property Name="team" Type="integer" />
+          <Property Name="time" Type="datetime" />
+          <Property Name="player" Type="integer" />
+          <Property Name="pass1" Type="integer" />
+          <Property Name="pass2" Type="integer" />
+        </EntityType>
+        <EntityType Name="passes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="game" Type="integer" />
+          <Property Name="team" Type="integer" />
+          <Property Name="player" Type="integer" />
+        </EntityType>
+        <EntityType Name="penalties">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="game" Type="integer" />
+          <Property Name="player" Type="integer" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="players">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="team" Type="integer" Nullable="false" />
+          <Property Name="no" Type="integer" Nullable="false" />
+          <Property Name="position" Type="char" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="players_games">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="game_id" Type="integer" />
+          <Property Name="player_id" Type="integer" />
+          <Property Name="change_on" Type="datetime" />
+          <Property Name="change_off" Type="datetime" />
+        </EntityType>
+        <EntityType Name="referees">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="integer" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_games_0_0">
+          <End Role="referees" Type="Self.referees" Multiplicity="0..1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="referee_assis2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_1_0">
+          <End Role="referees" Type="Self.referees" Multiplicity="0..1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="referee_assist1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_2_0">
+          <End Role="referees" Type="Self.referees" Multiplicity="0..1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="referee_main" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_3_0">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_4_0">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="games" Type="Self.games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="games">
+              <PropertyRef Name="team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_0_0">
+          <End Role="passes" Type="Self.passes" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="passes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="pass2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_1_0">
+          <End Role="passes" Type="Self.passes" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="passes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="pass1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_2_0">
+          <End Role="players" Type="Self.players" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_3_0">
+          <End Role="teams" Type="Self.teams" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_4_0">
+          <End Role="games" Type="Self.games" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="games">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_0_0">
+          <End Role="players" Type="Self.players" Multiplicity="0..1" />
+          <End Role="passes" Type="Self.passes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="passes">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_1_0">
+          <End Role="teams" Type="Self.teams" Multiplicity="0..1" />
+          <End Role="passes" Type="Self.passes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="passes">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_2_0">
+          <End Role="games" Type="Self.games" Multiplicity="0..1" />
+          <End Role="passes" Type="Self.passes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="games">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="passes">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_penalties_0_0">
+          <End Role="players" Type="Self.players" Multiplicity="0..1" />
+          <End Role="penalties" Type="Self.penalties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="penalties">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_penalties_1_0">
+          <End Role="games" Type="Self.games" Multiplicity="0..1" />
+          <End Role="penalties" Type="Self.penalties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="games">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="penalties">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_0_0">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="players" Type="Self.players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_games_0_0">
+          <End Role="players" Type="Self.players" Multiplicity="0..1" />
+          <End Role="players_games" Type="Self.players_games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players_games">
+              <PropertyRef Name="player_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_games_1_0">
+          <End Role="games" Type="Self.games" Multiplicity="0..1" />
+          <End Role="players_games" Type="Self.players_games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="games">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players_games">
+              <PropertyRef Name="game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="statsModelStoreContainer">
+          <EntitySet Name="games" EntityType="Self.games" store:Type="Tables" />
+          <EntitySet Name="goals" EntityType="Self.goals" store:Type="Tables" />
+          <EntitySet Name="passes" EntityType="Self.passes" store:Type="Tables" />
+          <EntitySet Name="penalties" EntityType="Self.penalties" store:Type="Tables" />
+          <EntitySet Name="players" EntityType="Self.players" store:Type="Tables" />
+          <EntitySet Name="players_games" EntityType="Self.players_games" store:Type="Tables" />
+          <EntitySet Name="referees" EntityType="Self.referees" store:Type="Tables" />
+          <EntitySet Name="teams" EntityType="Self.teams" store:Type="Tables" />
+          <AssociationSet Name="FK_games_0_0" Association="Self.FK_games_0_0">
+            <End Role="referees" EntitySet="referees" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_1_0" Association="Self.FK_games_1_0">
+            <End Role="referees" EntitySet="referees" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_2_0" Association="Self.FK_games_2_0">
+            <End Role="referees" EntitySet="referees" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_3_0" Association="Self.FK_games_3_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_4_0" Association="Self.FK_games_4_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="games" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_0_0" Association="Self.FK_goals_0_0">
+            <End Role="passes" EntitySet="passes" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_1_0" Association="Self.FK_goals_1_0">
+            <End Role="passes" EntitySet="passes" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_2_0" Association="Self.FK_goals_2_0">
+            <End Role="players" EntitySet="players" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_3_0" Association="Self.FK_goals_3_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_4_0" Association="Self.FK_goals_4_0">
+            <End Role="games" EntitySet="games" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_0_0" Association="Self.FK_passes_0_0">
+            <End Role="players" EntitySet="players" />
+            <End Role="passes" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_1_0" Association="Self.FK_passes_1_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="passes" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_2_0" Association="Self.FK_passes_2_0">
+            <End Role="games" EntitySet="games" />
+            <End Role="passes" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_penalties_0_0" Association="Self.FK_penalties_0_0">
+            <End Role="players" EntitySet="players" />
+            <End Role="penalties" EntitySet="penalties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_penalties_1_0" Association="Self.FK_penalties_1_0">
+            <End Role="games" EntitySet="games" />
+            <End Role="penalties" EntitySet="penalties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_0_0" Association="Self.FK_players_0_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="players" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_games_0_0" Association="Self.FK_players_games_0_0">
+            <End Role="players" EntitySet="players" />
+            <End Role="players_games" EntitySet="players_games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_games_1_0" Association="Self.FK_players_games_1_0">
+            <End Role="games" EntitySet="games" />
+            <End Role="players_games" EntitySet="players_games" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="statsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="statsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="games" EntityType="statsModel.game" />
+          <EntitySet Name="goals" EntityType="statsModel.goal" />
+          <EntitySet Name="passes" EntityType="statsModel.pass" />
+          <EntitySet Name="penalties" EntityType="statsModel.penalty" />
+          <EntitySet Name="players" EntityType="statsModel.player" />
+          <EntitySet Name="players_games" EntityType="statsModel.players_games" />
+          <EntitySet Name="referees" EntityType="statsModel.referee" />
+          <EntitySet Name="teams" EntityType="statsModel.team" />
+          <AssociationSet Name="FK_games_0_0" Association="statsModel.FK_games_0_0">
+            <End Role="referee" EntitySet="referees" />
+            <End Role="game" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_1_0" Association="statsModel.FK_games_1_0">
+            <End Role="referee" EntitySet="referees" />
+            <End Role="game" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_2_0" Association="statsModel.FK_games_2_0">
+            <End Role="referee" EntitySet="referees" />
+            <End Role="game" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_3_0" Association="statsModel.FK_games_3_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="game" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_games_4_0" Association="statsModel.FK_games_4_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="game" EntitySet="games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_4_0" Association="statsModel.FK_goals_4_0">
+            <End Role="game" EntitySet="games" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_2_0" Association="statsModel.FK_passes_2_0">
+            <End Role="game" EntitySet="games" />
+            <End Role="pass" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_penalties_1_0" Association="statsModel.FK_penalties_1_0">
+            <End Role="game" EntitySet="games" />
+            <End Role="penalty" EntitySet="penalties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_games_1_0" Association="statsModel.FK_players_games_1_0">
+            <End Role="game" EntitySet="games" />
+            <End Role="players_games" EntitySet="players_games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_0_0" Association="statsModel.FK_goals_0_0">
+            <End Role="pass" EntitySet="passes" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_1_0" Association="statsModel.FK_goals_1_0">
+            <End Role="pass" EntitySet="passes" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_2_0" Association="statsModel.FK_goals_2_0">
+            <End Role="player" EntitySet="players" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_3_0" Association="statsModel.FK_goals_3_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_0_0" Association="statsModel.FK_passes_0_0">
+            <End Role="player" EntitySet="players" />
+            <End Role="pass" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_passes_1_0" Association="statsModel.FK_passes_1_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="pass" EntitySet="passes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_penalties_0_0" Association="statsModel.FK_penalties_0_0">
+            <End Role="player" EntitySet="players" />
+            <End Role="penalty" EntitySet="penalties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_0_0" Association="statsModel.FK_players_0_0">
+            <End Role="team" EntitySet="teams" />
+            <End Role="player" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_players_games_0_0" Association="statsModel.FK_players_games_0_0">
+            <End Role="player" EntitySet="players" />
+            <End Role="players_games" EntitySet="players_games" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="game">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="place" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="team1" Type="Int64" Nullable="false" />
+          <Property Name="team2" Type="Int64" Nullable="false" />
+          <Property Name="points_team1" Type="Int64" />
+          <Property Name="points_team2" Type="Int64" />
+          <Property Name="referee_main" Type="Int64" />
+          <Property Name="referee_assist1" Type="Int64" />
+          <Property Name="referee_assis2" Type="Int64" />
+          <Property Name="spectators" Type="Int64" />
+          <NavigationProperty Name="referee" Relationship="statsModel.FK_games_0_0" FromRole="game" ToRole="referee" />
+          <NavigationProperty Name="referee1" Relationship="statsModel.FK_games_1_0" FromRole="game" ToRole="referee" />
+          <NavigationProperty Name="referee2" Relationship="statsModel.FK_games_2_0" FromRole="game" ToRole="referee" />
+          <NavigationProperty Name="team" Relationship="statsModel.FK_games_3_0" FromRole="game" ToRole="team" />
+          <NavigationProperty Name="team3" Relationship="statsModel.FK_games_4_0" FromRole="game" ToRole="team" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_4_0" FromRole="game" ToRole="goal" />
+          <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_2_0" FromRole="game" ToRole="pass" />
+          <NavigationProperty Name="penalties" Relationship="statsModel.FK_penalties_1_0" FromRole="game" ToRole="penalty" />
+          <NavigationProperty Name="players_games" Relationship="statsModel.FK_players_games_1_0" FromRole="game" ToRole="players_games" />
+        </EntityType>
+        <EntityType Name="goal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="game" Type="Int64" />
+          <Property Name="team" Type="Int64" />
+          <Property Name="time" Type="DateTime" />
+          <Property Name="player" Type="Int64" />
+          <Property Name="pass1" Type="Int64" />
+          <Property Name="pass2" Type="Int64" />
+          <NavigationProperty Name="game1" Relationship="statsModel.FK_goals_4_0" FromRole="goal" ToRole="game" />
+          <NavigationProperty Name="pass" Relationship="statsModel.FK_goals_0_0" FromRole="goal" ToRole="pass" />
+          <NavigationProperty Name="pass3" Relationship="statsModel.FK_goals_1_0" FromRole="goal" ToRole="pass" />
+          <NavigationProperty Name="player1" Relationship="statsModel.FK_goals_2_0" FromRole="goal" ToRole="player" />
+          <NavigationProperty Name="team1" Relationship="statsModel.FK_goals_3_0" FromRole="goal" ToRole="team" />
+        </EntityType>
+        <EntityType Name="pass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="game" Type="Int64" />
+          <Property Name="team" Type="Int64" />
+          <Property Name="player" Type="Int64" />
+          <NavigationProperty Name="game1" Relationship="statsModel.FK_passes_2_0" FromRole="pass" ToRole="game" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_0_0" FromRole="pass" ToRole="goal" />
+          <NavigationProperty Name="goals1" Relationship="statsModel.FK_goals_1_0" FromRole="pass" ToRole="goal" />
+          <NavigationProperty Name="player1" Relationship="statsModel.FK_passes_0_0" FromRole="pass" ToRole="player" />
+          <NavigationProperty Name="team1" Relationship="statsModel.FK_passes_1_0" FromRole="pass" ToRole="team" />
+        </EntityType>
+        <EntityType Name="penalty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="game" Type="Int64" />
+          <Property Name="player" Type="Int64" />
+          <Property Name="time" Type="DateTime" />
+          <NavigationProperty Name="game1" Relationship="statsModel.FK_penalties_1_0" FromRole="penalty" ToRole="game" />
+          <NavigationProperty Name="player1" Relationship="statsModel.FK_penalties_0_0" FromRole="penalty" ToRole="player" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="team" Type="Int64" Nullable="false" />
+          <Property Name="no" Type="Int64" Nullable="false" />
+          <Property Name="position" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_2_0" FromRole="player" ToRole="goal" />
+          <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_0_0" FromRole="player" ToRole="pass" />
+          <NavigationProperty Name="penalties" Relationship="statsModel.FK_penalties_0_0" FromRole="player" ToRole="penalty" />
+          <NavigationProperty Name="team1" Relationship="statsModel.FK_players_0_0" FromRole="player" ToRole="team" />
+          <NavigationProperty Name="players_games" Relationship="statsModel.FK_players_games_0_0" FromRole="player" ToRole="players_games" />
+        </EntityType>
+        <EntityType Name="players_games">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="game_id" Type="Int64" />
+          <Property Name="player_id" Type="Int64" />
+          <Property Name="change_on" Type="DateTime" />
+          <Property Name="change_off" Type="DateTime" />
+          <NavigationProperty Name="game" Relationship="statsModel.FK_players_games_1_0" FromRole="players_games" ToRole="game" />
+          <NavigationProperty Name="player" Relationship="statsModel.FK_players_games_0_0" FromRole="players_games" ToRole="player" />
+        </EntityType>
+        <EntityType Name="referee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="games" Relationship="statsModel.FK_games_0_0" FromRole="referee" ToRole="game" />
+          <NavigationProperty Name="games1" Relationship="statsModel.FK_games_1_0" FromRole="referee" ToRole="game" />
+          <NavigationProperty Name="games2" Relationship="statsModel.FK_games_2_0" FromRole="referee" ToRole="game" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="games" Relationship="statsModel.FK_games_3_0" FromRole="team" ToRole="game" />
+          <NavigationProperty Name="games1" Relationship="statsModel.FK_games_4_0" FromRole="team" ToRole="game" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_3_0" FromRole="team" ToRole="goal" />
+          <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_1_0" FromRole="team" ToRole="pass" />
+          <NavigationProperty Name="players" Relationship="statsModel.FK_players_0_0" FromRole="team" ToRole="player" />
+        </EntityType>
+        <Association Name="FK_games_0_0">
+          <End Type="statsModel.referee" Role="referee" Multiplicity="0..1" />
+          <End Type="statsModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="referee_assis2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_1_0">
+          <End Type="statsModel.referee" Role="referee" Multiplicity="0..1" />
+          <End Type="statsModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="referee_assist1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_2_0">
+          <End Type="statsModel.referee" Role="referee" Multiplicity="0..1" />
+          <End Type="statsModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="referee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="referee_main" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_3_0">
+          <End Type="statsModel.team" Role="team" Multiplicity="1" />
+          <End Type="statsModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="team2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_games_4_0">
+          <End Type="statsModel.team" Role="team" Multiplicity="1" />
+          <End Type="statsModel.game" Role="game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="game">
+              <PropertyRef Name="team1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_4_0">
+          <End Type="statsModel.game" Role="game" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_2_0">
+          <End Type="statsModel.game" Role="game" Multiplicity="0..1" />
+          <End Type="statsModel.pass" Role="pass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pass">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_penalties_1_0">
+          <End Type="statsModel.game" Role="game" Multiplicity="0..1" />
+          <End Type="statsModel.penalty" Role="penalty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="penalty">
+              <PropertyRef Name="game" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_games_1_0">
+          <End Type="statsModel.game" Role="game" Multiplicity="0..1" />
+          <End Type="statsModel.players_games" Role="players_games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players_games">
+              <PropertyRef Name="game_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_0_0">
+          <End Type="statsModel.pass" Role="pass" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="pass2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_1_0">
+          <End Type="statsModel.pass" Role="pass" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="pass1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_2_0">
+          <End Type="statsModel.player" Role="player" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="player">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_3_0">
+          <End Type="statsModel.team" Role="team" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_0_0">
+          <End Type="statsModel.player" Role="player" Multiplicity="0..1" />
+          <End Type="statsModel.pass" Role="pass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="player">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pass">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_passes_1_0">
+          <End Type="statsModel.team" Role="team" Multiplicity="0..1" />
+          <End Type="statsModel.pass" Role="pass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pass">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_penalties_0_0">
+          <End Type="statsModel.player" Role="player" Multiplicity="0..1" />
+          <End Type="statsModel.penalty" Role="penalty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="player">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="penalty">
+              <PropertyRef Name="player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_0_0">
+          <End Type="statsModel.team" Role="team" Multiplicity="1" />
+          <End Type="statsModel.player" Role="player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="player">
+              <PropertyRef Name="team" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_players_games_0_0">
+          <End Type="statsModel.player" Role="player" Multiplicity="0..1" />
+          <End Type="statsModel.players_games" Role="players_games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="player">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="players_games">
+              <PropertyRef Name="player_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="statsModelStoreContainer" CdmEntityContainer="statsEntities">
+          <EntitySetMapping Name="games">
+            <EntityTypeMapping TypeName="statsModel.game">
+              <MappingFragment StoreEntitySet="games">
+                <ScalarProperty Name="spectators" ColumnName="spectators" />
+                <ScalarProperty Name="referee_assis2" ColumnName="referee_assis2" />
+                <ScalarProperty Name="referee_assist1" ColumnName="referee_assist1" />
+                <ScalarProperty Name="referee_main" ColumnName="referee_main" />
+                <ScalarProperty Name="points_team2" ColumnName="points_team2" />
+                <ScalarProperty Name="points_team1" ColumnName="points_team1" />
+                <ScalarProperty Name="team2" ColumnName="team2" />
+                <ScalarProperty Name="team1" ColumnName="team1" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="goals">
+            <EntityTypeMapping TypeName="statsModel.goal">
+              <MappingFragment StoreEntitySet="goals">
+                <ScalarProperty Name="pass2" ColumnName="pass2" />
+                <ScalarProperty Name="pass1" ColumnName="pass1" />
+                <ScalarProperty Name="player" ColumnName="player" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="team" ColumnName="team" />
+                <ScalarProperty Name="game" ColumnName="game" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="passes">
+            <EntityTypeMapping TypeName="statsModel.pass">
+              <MappingFragment StoreEntitySet="passes">
+                <ScalarProperty Name="player" ColumnName="player" />
+                <ScalarProperty Name="team" ColumnName="team" />
+                <ScalarProperty Name="game" ColumnName="game" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="penalties">
+            <EntityTypeMapping TypeName="statsModel.penalty">
+              <MappingFragment StoreEntitySet="penalties">
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="player" ColumnName="player" />
+                <ScalarProperty Name="game" ColumnName="game" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="players">
+            <EntityTypeMapping TypeName="statsModel.player">
+              <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="team" ColumnName="team" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="players_games">
+            <EntityTypeMapping TypeName="statsModel.players_games">
+              <MappingFragment StoreEntitySet="players_games">
+                <ScalarProperty Name="change_off" ColumnName="change_off" />
+                <ScalarProperty Name="change_on" ColumnName="change_on" />
+                <ScalarProperty Name="player_id" ColumnName="player_id" />
+                <ScalarProperty Name="game_id" ColumnName="game_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="referees">
+            <EntityTypeMapping TypeName="statsModel.referee">
+              <MappingFragment StoreEntitySet="referees">
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="statsModel.team">
+              <MappingFragment StoreEntitySet="teams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

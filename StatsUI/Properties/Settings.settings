@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="StatsUI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConnString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">data source=C:\Users\User\source\repos\FootballStats\StatsDB.db</Value>
+    </Setting>
+    <Setting Name="XMLfolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\User\Google Drive\!Studies\Year1\Programming\PD2\XMLFirstRound</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

@@ -7,23 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StatsUI
+namespace StatsUI.StatsDB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class team
+    public partial class referee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public team()
+        public referee()
         {
             this.games = new HashSet<game>();
+            this.games1 = new HashSet<game>();
+            this.games2 = new HashSet<game>();
         }
     
-        public long Id { get; set; }
+        public long id { get; set; }
         public string name { get; set; }
+        public string surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<game> games { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<game> games1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<game> games2 { get; set; }
     }
 }
