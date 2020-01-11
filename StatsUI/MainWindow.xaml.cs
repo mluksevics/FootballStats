@@ -165,6 +165,7 @@ namespace StatsUI
                     game.referee2 = ref_line[1];
                     game.team = gameTeams[0];
                     game.team3 = gameTeams[1];
+                    //ierakstam spēles datus
 
                     //Nosakam spēles garumu (sekundes)
                     int gameDuration = 3600;
@@ -178,9 +179,12 @@ namespace StatsUI
                     }
 
                     game.duration = gameDuration;
+                    context.games.Add(game);
+                    context.SaveChanges();
+
 
                     //apstrādājam datus katrā no komandām
-                    for(int i = 0; i < gameXML.Komanda.Count(); i++)
+                    for (int i = 0; i < gameXML.Komanda.Count(); i++)
                     {
                         SpeleKomanda teamXML = gameXML.Komanda[i];
                         StatsDB.team teamDB = gameTeams[i];
@@ -268,8 +272,12 @@ namespace StatsUI
                             };
 
                             teamPlayers.Add(player);
-                            context.players.Add(player);
+
+                            if(context.Entry(player).State == System.Data.Entity.EntityState.Modified)
+                            { context.players.Add(player); }
+                            
                             context.players_games.Add(players_Games);
+                            context.SaveChanges();
                         };
 
                         //ierakstam sodus
@@ -287,6 +295,7 @@ namespace StatsUI
                             };
 
                             context.penalties.Add(penalty);
+                            context.SaveChanges();
                         };
 
                         //ierakstam vārtus un piespēles
@@ -305,7 +314,7 @@ namespace StatsUI
                                 type = goalXML.Sitiens
                             };
 
-                            if(goalXML.P!= null)
+                            if(goalXML.P != null)
                             {
                                 for (int j = 0; j < goalXML.P.Count(); j++)
                                 {
@@ -320,17 +329,20 @@ namespace StatsUI
                                         player1 = teamPlayers[PassPlayerIndex]
                                     };
 
-                                    if (j == 0) { goal.pass3 = pass; }
-                                    if (j == 1) { goal.pass = pass; }
+                                    if (j == 0) { goal.pass5 = pass; }
+                                    if (j == 1) { goal.pass4 = pass; }
+                                    if (j == 2) { goal.pass = pass; }
                                 }
-
-                                //ierakstam datu bāzē
-                                context.goals.Add(goal);
-
-                                //pievienojam vārtu "listei" kādai no komandām.
-                                if (i == 0) { team1goals.Add(goal); }
-                                if (i == 1) { team1goals.Add(goal); }
                             }
+
+                            //ierakstam datu bāzē
+                            context.goals.Add(goal);
+                            context.SaveChanges();
+
+                            //pievienojam vārtu "listei" kādai no komandām.
+                            if (i == 0) { team1goals.Add(goal); }
+                            if (i == 1) { team2goals.Add(goal); }
+                            
                         }
                     }
 
@@ -359,15 +371,14 @@ namespace StatsUI
                     }
 
                     game.points_team1 = team1score;
-                    game.points_team2 = team1score;
+                    game.points_team2 = team2score;
+                    context.SaveChanges();
 
-                    //ierakstam spēles datus
-                    context.games.Add(game);
-
-                    
                 }
+                
 
-                context.SaveChanges();
+
+
 
 
             }

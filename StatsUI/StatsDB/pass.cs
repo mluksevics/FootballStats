@@ -19,6 +19,7 @@ namespace StatsUI.StatsDB
         {
             this.goals = new HashSet<goal>();
             this.goals1 = new HashSet<goal>();
+            this.goals2 = new HashSet<goal>();
         }
     
         public long id { get; set; }
@@ -31,6 +32,8 @@ namespace StatsUI.StatsDB
         public virtual ICollection<goal> goals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<goal> goals1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<goal> goals2 { get; set; }
         public virtual player player1 { get; set; }
         public virtual team team1 { get; set; }
     }

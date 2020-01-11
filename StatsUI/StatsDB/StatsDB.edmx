@@ -33,6 +33,7 @@
           <Property Name="player" Type="integer" />
           <Property Name="pass1" Type="integer" />
           <Property Name="pass2" Type="integer" />
+          <Property Name="pass3" Type="integer" />
           <Property Name="type" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="passes">
@@ -157,7 +158,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="goals">
-              <PropertyRef Name="pass2" />
+              <PropertyRef Name="pass3" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -169,11 +170,23 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="goals">
-              <PropertyRef Name="pass1" />
+              <PropertyRef Name="pass2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_goals_2_0">
+          <End Role="passes" Type="Self.passes" Multiplicity="0..1" />
+          <End Role="goals" Type="Self.goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="passes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goals">
+              <PropertyRef Name="pass1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_3_0">
           <End Role="players" Type="Self.players" Multiplicity="0..1" />
           <End Role="goals" Type="Self.goals" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +198,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_goals_3_0">
+        <Association Name="FK_goals_4_0">
           <End Role="teams" Type="Self.teams" Multiplicity="0..1" />
           <End Role="goals" Type="Self.goals" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +210,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_goals_4_0">
+        <Association Name="FK_goals_5_0">
           <End Role="games" Type="Self.games" Multiplicity="0..1" />
           <End Role="goals" Type="Self.goals" Multiplicity="*" />
           <ReferentialConstraint>
@@ -343,14 +356,18 @@
             <End Role="goals" EntitySet="goals" />
           </AssociationSet>
           <AssociationSet Name="FK_goals_2_0" Association="Self.FK_goals_2_0">
-            <End Role="players" EntitySet="players" />
+            <End Role="passes" EntitySet="passes" />
             <End Role="goals" EntitySet="goals" />
           </AssociationSet>
           <AssociationSet Name="FK_goals_3_0" Association="Self.FK_goals_3_0">
-            <End Role="teams" EntitySet="teams" />
+            <End Role="players" EntitySet="players" />
             <End Role="goals" EntitySet="goals" />
           </AssociationSet>
           <AssociationSet Name="FK_goals_4_0" Association="Self.FK_goals_4_0">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="goals" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_5_0" Association="Self.FK_goals_5_0">
             <End Role="games" EntitySet="games" />
             <End Role="goals" EntitySet="goals" />
           </AssociationSet>
@@ -420,7 +437,7 @@
             <End Role="team" EntitySet="teams" />
             <End Role="game" EntitySet="games" />
           </AssociationSet>
-          <AssociationSet Name="FK_goals_4_0" Association="statsModel.FK_goals_4_0">
+          <AssociationSet Name="FK_goals_5_0" Association="statsModel.FK_goals_5_0">
             <End Role="game" EntitySet="games" />
             <End Role="goal" EntitySet="goals" />
           </AssociationSet>
@@ -445,10 +462,14 @@
             <End Role="goal" EntitySet="goals" />
           </AssociationSet>
           <AssociationSet Name="FK_goals_2_0" Association="statsModel.FK_goals_2_0">
-            <End Role="player" EntitySet="players" />
+            <End Role="pass" EntitySet="passes" />
             <End Role="goal" EntitySet="goals" />
           </AssociationSet>
           <AssociationSet Name="FK_goals_3_0" Association="statsModel.FK_goals_3_0">
+            <End Role="player" EntitySet="players" />
+            <End Role="goal" EntitySet="goals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_goals_4_0" Association="statsModel.FK_goals_4_0">
             <End Role="team" EntitySet="teams" />
             <End Role="goal" EntitySet="goals" />
           </AssociationSet>
@@ -494,7 +515,7 @@
           <NavigationProperty Name="referee2" Relationship="statsModel.FK_games_2_0" FromRole="game" ToRole="referee" />
           <NavigationProperty Name="team" Relationship="statsModel.FK_games_3_0" FromRole="game" ToRole="team" />
           <NavigationProperty Name="team3" Relationship="statsModel.FK_games_4_0" FromRole="game" ToRole="team" />
-          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_4_0" FromRole="game" ToRole="goal" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_5_0" FromRole="game" ToRole="goal" />
           <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_2_0" FromRole="game" ToRole="pass" />
           <NavigationProperty Name="penalties" Relationship="statsModel.FK_penalties_1_0" FromRole="game" ToRole="penalty" />
           <NavigationProperty Name="players_games" Relationship="statsModel.FK_players_games_1_0" FromRole="game" ToRole="players_games" />
@@ -510,12 +531,14 @@
           <Property Name="player" Type="Int64" />
           <Property Name="pass1" Type="Int64" />
           <Property Name="pass2" Type="Int64" />
+          <Property Name="pass3" Type="Int64" />
           <Property Name="type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="game1" Relationship="statsModel.FK_goals_4_0" FromRole="goal" ToRole="game" />
+          <NavigationProperty Name="game1" Relationship="statsModel.FK_goals_5_0" FromRole="goal" ToRole="game" />
           <NavigationProperty Name="pass" Relationship="statsModel.FK_goals_0_0" FromRole="goal" ToRole="pass" />
-          <NavigationProperty Name="pass3" Relationship="statsModel.FK_goals_1_0" FromRole="goal" ToRole="pass" />
-          <NavigationProperty Name="player1" Relationship="statsModel.FK_goals_2_0" FromRole="goal" ToRole="player" />
-          <NavigationProperty Name="team1" Relationship="statsModel.FK_goals_3_0" FromRole="goal" ToRole="team" />
+          <NavigationProperty Name="pass4" Relationship="statsModel.FK_goals_1_0" FromRole="goal" ToRole="pass" />
+          <NavigationProperty Name="pass5" Relationship="statsModel.FK_goals_2_0" FromRole="goal" ToRole="pass" />
+          <NavigationProperty Name="player1" Relationship="statsModel.FK_goals_3_0" FromRole="goal" ToRole="player" />
+          <NavigationProperty Name="team1" Relationship="statsModel.FK_goals_4_0" FromRole="goal" ToRole="team" />
         </EntityType>
         <EntityType Name="pass">
           <Key>
@@ -528,6 +551,7 @@
           <NavigationProperty Name="game1" Relationship="statsModel.FK_passes_2_0" FromRole="pass" ToRole="game" />
           <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_0_0" FromRole="pass" ToRole="goal" />
           <NavigationProperty Name="goals1" Relationship="statsModel.FK_goals_1_0" FromRole="pass" ToRole="goal" />
+          <NavigationProperty Name="goals2" Relationship="statsModel.FK_goals_2_0" FromRole="pass" ToRole="goal" />
           <NavigationProperty Name="player1" Relationship="statsModel.FK_passes_0_0" FromRole="pass" ToRole="player" />
           <NavigationProperty Name="team1" Relationship="statsModel.FK_passes_1_0" FromRole="pass" ToRole="team" />
         </EntityType>
@@ -552,7 +576,7 @@
           <Property Name="team" Type="Int64" Nullable="false" />
           <Property Name="no" Type="Int64" Nullable="false" />
           <Property Name="position" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_2_0" FromRole="player" ToRole="goal" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_3_0" FromRole="player" ToRole="goal" />
           <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_0_0" FromRole="player" ToRole="pass" />
           <NavigationProperty Name="penalties" Relationship="statsModel.FK_penalties_0_0" FromRole="player" ToRole="penalty" />
           <NavigationProperty Name="team1" Relationship="statsModel.FK_players_0_0" FromRole="player" ToRole="team" />
@@ -589,7 +613,7 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="games" Relationship="statsModel.FK_games_3_0" FromRole="team" ToRole="game" />
           <NavigationProperty Name="games1" Relationship="statsModel.FK_games_4_0" FromRole="team" ToRole="game" />
-          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_3_0" FromRole="team" ToRole="goal" />
+          <NavigationProperty Name="goals" Relationship="statsModel.FK_goals_4_0" FromRole="team" ToRole="goal" />
           <NavigationProperty Name="passes" Relationship="statsModel.FK_passes_1_0" FromRole="team" ToRole="pass" />
           <NavigationProperty Name="players" Relationship="statsModel.FK_players_0_0" FromRole="team" ToRole="player" />
         </EntityType>
@@ -653,7 +677,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_goals_4_0">
+        <Association Name="FK_goals_5_0">
           <End Type="statsModel.game" Role="game" Multiplicity="0..1" />
           <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -709,7 +733,7 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="goal">
-              <PropertyRef Name="pass2" />
+              <PropertyRef Name="pass3" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -721,11 +745,23 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="goal">
-              <PropertyRef Name="pass1" />
+              <PropertyRef Name="pass2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_goals_2_0">
+          <End Type="statsModel.pass" Role="pass" Multiplicity="0..1" />
+          <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pass">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="goal">
+              <PropertyRef Name="pass1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_goals_3_0">
           <End Type="statsModel.player" Role="player" Multiplicity="0..1" />
           <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -737,7 +773,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_goals_3_0">
+        <Association Name="FK_goals_4_0">
           <End Type="statsModel.team" Role="team" Multiplicity="0..1" />
           <End Type="statsModel.goal" Role="goal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -837,6 +873,7 @@
             <EntityTypeMapping TypeName="statsModel.goal">
               <MappingFragment StoreEntitySet="goals">
                 <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="pass3" ColumnName="pass3" />
                 <ScalarProperty Name="pass2" ColumnName="pass2" />
                 <ScalarProperty Name="pass1" ColumnName="pass1" />
                 <ScalarProperty Name="player" ColumnName="player" />

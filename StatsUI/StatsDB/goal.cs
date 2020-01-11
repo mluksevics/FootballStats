@@ -21,11 +21,13 @@ namespace StatsUI.StatsDB
         public Nullable<long> player { get; set; }
         public Nullable<long> pass1 { get; set; }
         public Nullable<long> pass2 { get; set; }
+        public Nullable<long> pass3 { get; set; }
         public string type { get; set; }
     
         public virtual game game1 { get; set; }
         public virtual pass pass { get; set; }
-        public virtual pass pass3 { get; set; }
+        public virtual pass pass4 { get; set; }
+        public virtual pass pass5 { get; set; }
         public virtual player player1 { get; set; }
         public virtual team team1 { get; set; }
     }
