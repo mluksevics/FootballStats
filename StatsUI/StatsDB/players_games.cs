@@ -17,8 +17,8 @@ namespace StatsUI.StatsDB
         public long id { get; set; }
         public Nullable<long> game_id { get; set; }
         public Nullable<long> player_id { get; set; }
-        public Nullable<System.DateTime> change_on { get; set; }
-        public Nullable<System.DateTime> change_off { get; set; }
+        public Nullable<long> change_on { get; set; }
+        public Nullable<long> change_off { get; set; }
     
         public virtual game game { get; set; }
         public virtual player player { get; set; }

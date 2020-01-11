@@ -117,6 +117,7 @@
     <Compile Include="StatsDB\team.cs">
       <DependentUpon>StatsDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Conversion.cs" />
     <Compile Include="Utilities\Logger.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

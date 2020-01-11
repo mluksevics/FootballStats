@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="integer" Nullable="false" />
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="place" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="team1" Type="integer" Nullable="false" />
@@ -20,6 +20,7 @@
           <Property Name="referee_assist1" Type="integer" />
           <Property Name="referee_assis2" Type="integer" />
           <Property Name="spectators" Type="integer" />
+          <Property Name="duration" Type="integer" />
         </EntityType>
         <EntityType Name="goals">
           <Key>
@@ -28,10 +29,11 @@
           <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="game" Type="integer" />
           <Property Name="team" Type="integer" />
-          <Property Name="time" Type="datetime" />
+          <Property Name="time" Type="integer" />
           <Property Name="player" Type="integer" />
           <Property Name="pass1" Type="integer" />
           <Property Name="pass2" Type="integer" />
+          <Property Name="type" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="passes">
           <Key>
@@ -49,7 +51,7 @@
           <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="game" Type="integer" />
           <Property Name="player" Type="integer" />
-          <Property Name="time" Type="datetime" />
+          <Property Name="time" Type="integer" />
         </EntityType>
         <EntityType Name="players">
           <Key>
@@ -69,8 +71,8 @@
           <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="game_id" Type="integer" />
           <Property Name="player_id" Type="integer" />
-          <Property Name="change_on" Type="datetime" />
-          <Property Name="change_off" Type="datetime" />
+          <Property Name="change_on" Type="integer" />
+          <Property Name="change_off" Type="integer" />
         </EntityType>
         <EntityType Name="referees">
           <Key>
@@ -84,7 +86,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="integer" Nullable="false" />
+          <Property Name="id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_games_0_0">
@@ -475,7 +477,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="place" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" />
           <Property Name="team1" Type="Int64" Nullable="false" />
@@ -486,6 +488,7 @@
           <Property Name="referee_assist1" Type="Int64" />
           <Property Name="referee_assis2" Type="Int64" />
           <Property Name="spectators" Type="Int64" />
+          <Property Name="duration" Type="Int64" />
           <NavigationProperty Name="referee" Relationship="statsModel.FK_games_0_0" FromRole="game" ToRole="referee" />
           <NavigationProperty Name="referee1" Relationship="statsModel.FK_games_1_0" FromRole="game" ToRole="referee" />
           <NavigationProperty Name="referee2" Relationship="statsModel.FK_games_2_0" FromRole="game" ToRole="referee" />
@@ -503,10 +506,11 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="game" Type="Int64" />
           <Property Name="team" Type="Int64" />
-          <Property Name="time" Type="DateTime" />
+          <Property Name="time" Type="Int64" />
           <Property Name="player" Type="Int64" />
           <Property Name="pass1" Type="Int64" />
           <Property Name="pass2" Type="Int64" />
+          <Property Name="type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="game1" Relationship="statsModel.FK_goals_4_0" FromRole="goal" ToRole="game" />
           <NavigationProperty Name="pass" Relationship="statsModel.FK_goals_0_0" FromRole="goal" ToRole="pass" />
           <NavigationProperty Name="pass3" Relationship="statsModel.FK_goals_1_0" FromRole="goal" ToRole="pass" />
@@ -534,7 +538,7 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="game" Type="Int64" />
           <Property Name="player" Type="Int64" />
-          <Property Name="time" Type="DateTime" />
+          <Property Name="time" Type="Int64" />
           <NavigationProperty Name="game1" Relationship="statsModel.FK_penalties_1_0" FromRole="penalty" ToRole="game" />
           <NavigationProperty Name="player1" Relationship="statsModel.FK_penalties_0_0" FromRole="penalty" ToRole="player" />
         </EntityType>
@@ -561,8 +565,8 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="game_id" Type="Int64" />
           <Property Name="player_id" Type="Int64" />
-          <Property Name="change_on" Type="DateTime" />
-          <Property Name="change_off" Type="DateTime" />
+          <Property Name="change_on" Type="Int64" />
+          <Property Name="change_off" Type="Int64" />
           <NavigationProperty Name="game" Relationship="statsModel.FK_players_games_1_0" FromRole="players_games" ToRole="game" />
           <NavigationProperty Name="player" Relationship="statsModel.FK_players_games_0_0" FromRole="players_games" ToRole="player" />
         </EntityType>
@@ -581,7 +585,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="games" Relationship="statsModel.FK_games_3_0" FromRole="team" ToRole="game" />
           <NavigationProperty Name="games1" Relationship="statsModel.FK_games_4_0" FromRole="team" ToRole="game" />
@@ -814,6 +818,7 @@
           <EntitySetMapping Name="games">
             <EntityTypeMapping TypeName="statsModel.game">
               <MappingFragment StoreEntitySet="games">
+                <ScalarProperty Name="duration" ColumnName="duration" />
                 <ScalarProperty Name="spectators" ColumnName="spectators" />
                 <ScalarProperty Name="referee_assis2" ColumnName="referee_assis2" />
                 <ScalarProperty Name="referee_assist1" ColumnName="referee_assist1" />
@@ -831,6 +836,7 @@
           <EntitySetMapping Name="goals">
             <EntityTypeMapping TypeName="statsModel.goal">
               <MappingFragment StoreEntitySet="goals">
+                <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="pass2" ColumnName="pass2" />
                 <ScalarProperty Name="pass1" ColumnName="pass1" />
                 <ScalarProperty Name="player" ColumnName="player" />

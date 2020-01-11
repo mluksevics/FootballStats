@@ -34,6 +34,7 @@ namespace StatsUI.StatsDB
         public Nullable<long> referee_assist1 { get; set; }
         public Nullable<long> referee_assis2 { get; set; }
         public Nullable<long> spectators { get; set; }
+        public Nullable<long> duration { get; set; }
     
         public virtual referee referee { get; set; }
         public virtual referee referee1 { get; set; }

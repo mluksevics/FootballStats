@@ -17,10 +17,11 @@ namespace StatsUI.StatsDB
         public long id { get; set; }
         public Nullable<long> game { get; set; }
         public Nullable<long> team { get; set; }
-        public Nullable<System.DateTime> time { get; set; }
+        public Nullable<long> time { get; set; }
         public Nullable<long> player { get; set; }
         public Nullable<long> pass1 { get; set; }
         public Nullable<long> pass2 { get; set; }
+        public string type { get; set; }
     
         public virtual game game1 { get; set; }
         public virtual pass pass { get; set; }

@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2ca9d946c43d4efaa86c8aa633a4ba36" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="statsModel.game" Width="1.5" PointX="5.5" PointY="10.625" />
-        <EntityTypeShape EntityType="statsModel.goal" Width="1.5" PointX="5.125" PointY="6.625" />
-        <EntityTypeShape EntityType="statsModel.pass" Width="1.5" PointX="7.125" PointY="7.125" />
-        <EntityTypeShape EntityType="statsModel.penalty" Width="1.5" PointX="8.875" PointY="7.25" />
-        <EntityTypeShape EntityType="statsModel.player" Width="1.5" PointX="0.875" PointY="5.375" />
-        <EntityTypeShape EntityType="statsModel.players_games" Width="1.5" PointX="0.5" PointY="14.5" />
-        <EntityTypeShape EntityType="statsModel.referee" Width="1.5" PointX="0.875" PointY="11.625" />
-        <EntityTypeShape EntityType="statsModel.team" Width="1.5" PointX="0.875" PointY="8.875" />
+      <Diagram DiagramId="2ca9d946c43d4efaa86c8aa633a4ba36" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="statsModel.game" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="statsModel.goal" Width="1.5" PointX="8.25" PointY="10.75" />
+        <EntityTypeShape EntityType="statsModel.pass" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="statsModel.penalty" Width="1.5" PointX="5.25" PointY="14.5" />
+        <EntityTypeShape EntityType="statsModel.player" Width="1.5" PointX="3" PointY="14.375" />
+        <EntityTypeShape EntityType="statsModel.players_games" Width="1.5" PointX="5.25" PointY="11.375" />
+        <EntityTypeShape EntityType="statsModel.referee" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="statsModel.team" Width="1.5" PointX="0.75" PointY="9" />
         <AssociationConnector Association="statsModel.FK_games_0_0" />
         <AssociationConnector Association="statsModel.FK_games_1_0" />
         <AssociationConnector Association="statsModel.FK_games_2_0" />
