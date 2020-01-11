@@ -34,7 +34,7 @@ namespace StatsUI
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            String folderPath = "C:/Users/User/Google Drive/!Studies/Year1/Programming/PD2/XMLFirstRound/";
+            String folderPath = "C:/Users/User/Google Drive/!Studies/Year1/Programming/PD2/XMLSecondRound/";
             List<Spele> gamesList = parseXML.Read(folderPath);
 
             using (var context = new StatsDB.statsEntities())
@@ -361,13 +361,13 @@ namespace StatsUI
                     if (latestGoalTime / 60 <= 60)
                     {
                         team1score = (team1goalCount > team2goalCount) ? 5 : 1;
-                        team2score = (team1goalCount < team2goalCount) ? 1 : 5;
+                        team2score = (team1goalCount > team2goalCount) ? 1 : 5;
                     }
                     //ja ir papildlaiks
                     else
                     {
                         team1score = (team1goalCount > team2goalCount) ? 3 : 2;
-                        team2score = (team1goalCount < team2goalCount) ? 2 : 3;
+                        team2score = (team1goalCount > team2goalCount) ? 2 : 3;
                     }
 
                     game.points_team1 = team1score;
