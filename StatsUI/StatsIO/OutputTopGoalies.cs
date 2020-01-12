@@ -46,13 +46,13 @@ namespace StatsUI.StatsIO
                     int lostGoals = 0;
 
                     //selektējam visas spēles, kurās vārtsargs piedalījies
-/*                    var games = (from p in context.players_games
+                    var games = (from p in context.players_games
                                 where p.player.id == vCurrent.id &&
                                 p.change_on  != -1 &&
                                 p.change_off != -1
                                 select p.game).Distinct();
-*/                    
-                    foreach(StatsDB.game game in context.games)
+                    
+                    foreach(StatsDB.game game in games)
                     {
                         //selektējam visus vārtus spēlēs, kurās vārtsargs piedalījies
                         var goalsInGame = from g in context.goals
@@ -61,15 +61,10 @@ namespace StatsUI.StatsIO
 
                         var playerGame = from pg in context.players_games
                                          where pg.game.id == game.id &&
-                                         pg.player.id == vCurrent.id &&
-                                         pg.change_on != -1 &&
-                                         pg.change_off != -1
+                                         pg.player.id == vCurrent.id
                                          select pg;
-
+                        
                         //nosakam, kurā brīdī vārstargs ir bijis laukumā
-                        int cnt = playerGame.Count();
-                        if (cnt == 0) continue;
-
                         int changeOn = (int)playerGame.First().change_on;
                         int changeOff = (int)playerGame.First().change_off;
 
@@ -109,16 +104,8 @@ namespace StatsUI.StatsIO
                     vOutput.SpelesPamatsast = gamesStartCrew.Count();
 
                     //aprēķinu vidēji ielaistos vārtus spēlē un ik pa cik minūtēm ielaiž vārtus
-                    if (totalGames == 0)
-                    { vOutput.VidVartiSpele = 0; }
-                    else
-                    { vOutput.VidVartiSpele = Math.Round((double)lostGoals / (double)totalGames, 2); }
-
-                    if (lostGoals == 0)
-                    { vOutput.VidMinutes1vartiem = TimeSpan.FromSeconds(0); }
-                    else
-                    { vOutput.VidMinutes1vartiem = TimeSpan.FromSeconds(totalSeconds / lostGoals); }
-
+                    vOutput.VidVartiSpele = Math.Round((double)lostGoals / (double)totalGames, 2);
+                    vOutput.VidMinutes1vartiem = TimeSpan.FromSeconds(totalSeconds / lostGoals);
 
                     outputList.Add(vOutput);
                 }
