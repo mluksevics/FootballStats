@@ -35,7 +35,35 @@ namespace StatsUI
             LogTab.IsSelected = true;
             StatsMain.Main.CountDBdata();
 
+            //iestatam sourci no kurienes lasīt log sarakstu
             listBox.ItemsSource = Logger.Names;
+
+            //pie ielādes, ielasam visas komandas iekš treeview
+            using (var context = new StatsDB.statsEntities())
+            {
+                var allTeams = from t in context.teams
+                               select t;
+
+                foreach(StatsDB.team t in allTeams)
+                {
+                    var teamItem = new TreeViewItem();
+                    teamItem.Header = t.name;
+                    TreeKomandas.Items.Add(teamItem);
+
+                    var playersItem = new TreeViewItem();
+                    playersItem.Header = "Spēlētāji";
+                    playersItem.Tag = t.name; 
+                    playersItem.MouseDoubleClick += new MouseButtonEventHandler(ViewTopPlayers);
+                    teamItem.Items.Add(playersItem);
+
+                    var goaliesItem = new TreeViewItem();
+                    goaliesItem.Header = "Vārtsargi";
+                    goaliesItem.Tag = t.name;
+                    goaliesItem.MouseDoubleClick += new MouseButtonEventHandler(ViewTopGoalies);
+                    teamItem.Items.Add(goaliesItem);
+
+                }
+            }
 
         }
 
@@ -106,9 +134,15 @@ namespace StatsUI
 
         private void ViewTopPlayers(object sender, MouseButtonEventArgs e)
         {
+            //handling input no ģenerētajiem listTree items
+            TreeViewItem selectedItem = (TreeViewItem)myTree.SelectedItem;
+            String team = "0";
+            if (selectedItem.Tag != null) team = selectedItem.Tag.ToString();
+
             StatsTab.Visibility = Visibility.Visible;
             StatsTab.IsSelected = true;
-            Content.DataContext = StatsIO.OutputTopPlayers.TopPlayers();
+
+            Content.DataContext = StatsIO.OutputTopPlayers.TopPlayers(team);
         }
 
         private void ViewTopReferees(object sender, MouseButtonEventArgs e)
@@ -117,6 +151,18 @@ namespace StatsUI
             StatsTab.IsSelected = true;
             Content.DataContext = StatsIO.OutputTopRefs.TopReferees();
 
+        }
+
+        private void ViewTopGoalies(object sender, MouseButtonEventArgs e)
+        {
+            //handling input no ģenerētajiem listTree items
+            TreeViewItem selectedItem = (TreeViewItem)myTree.SelectedItem;
+            String team = "0";
+            if (selectedItem.Tag != null) team = selectedItem.Tag.ToString();
+
+            StatsTab.Visibility = Visibility.Visible;
+            StatsTab.IsSelected = true;
+            Content.DataContext = StatsIO.OutputTopGoalies.TopGoalies(team);
         }
     }
 }

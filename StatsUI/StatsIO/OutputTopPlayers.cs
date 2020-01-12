@@ -8,17 +8,30 @@ namespace StatsUI.StatsIO
 {
     class OutputTopPlayers
     {
-        public static List<PlayerOutput> TopPlayers()
+        private static IEnumerable<object> allPlayers;
+
+        public static List<PlayerOutput> TopPlayers(String teamSelected = "0")
         {
             //veidojam List priekš datu izvades
             var outputList = new List<PlayerOutput>();
 
             using (var context = new StatsDB.statsEntities())
             {
-                //selektējam visas komandas no datubazes
-                var allPlayers = from p in context.players
-                                 select p;
+                //selektējam spēlētājus no datubazes
+                List<StatsDB.player> allPlayers = new List<StatsDB.player>();
+                if (teamSelected == "0")
+                {
+                    allPlayers = (from p in context.players
+                                     select p).ToList();
+                }
+                else
+                {
+                    allPlayers = (from p in context.players
+                                     where p.team1.name == teamSelected
+                                     select p).ToList();
+                }
 
+                //savācam datus katram spēlētājam
                 foreach (var tCurrent in allPlayers)
                 {
                     var pOutput = new PlayerOutput();

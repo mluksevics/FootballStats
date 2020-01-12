@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StatsUI"
         mc:Ignorable="d"
-        Title="Football Stats - Mārcis Lukšēvics" Height="450" Width="800">
+        Title="Football Stats - Mārcis Lukšēvics" Height="450" Width="900">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -17,14 +17,13 @@
             </MenuItem>
         </Menu>
 
-        <TreeView Width="150" DockPanel.Dock="Left" HorizontalAlignment="Left">
+        <TreeView x:Name="myTree" Width="175" DockPanel.Dock="Left" HorizontalAlignment="Left">
             <TreeViewItem Header="Statistika" IsExpanded="True">
                 <TreeViewItem Header="Top komandas" MouseDoubleClick="ViewTopTeams" />
                 <TreeViewItem Header="Top spēlētāji" MouseDoubleClick="ViewTopPlayers" />
-                <TreeViewItem Header="Komandas" IsExpanded="False">
-                    <TreeViewItem Header="Barcelona" />
+                <TreeViewItem Name="TreeKomandas" Header="Komandas" IsExpanded="True">
                 </TreeViewItem>
-                <TreeViewItem Header="Vārtsargi" />
+                <TreeViewItem Header="Vārtsargi" MouseDoubleClick="ViewTopGoalies" />
                 <TreeViewItem Header="Tiesneši"  MouseDoubleClick="ViewTopReferees"/>
             </TreeViewItem>
         </TreeView>
