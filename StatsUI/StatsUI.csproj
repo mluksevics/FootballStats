@@ -113,6 +113,7 @@
       <DependentUpon>StatsDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="StatsIO\XMLtoDB.cs" />
+    <Compile Include="StatsMain\Main.cs" />
     <Compile Include="StatsXML\parseXML.cs" />
     <Compile Include="StatsXML\XMLobjects.cs" />
     <Compile Include="StatsDB\team.cs">
