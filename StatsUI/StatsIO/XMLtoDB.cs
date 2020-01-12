@@ -196,21 +196,20 @@ namespace StatsUI.StatsIO
         {
             List<StatsDB.players_games> GamePlayers = new List<StatsDB.players_games>();
 
-            //nosakām spēlētāja uznākšanu un noiešanu no laukuma
-            //skatamies, vai spēlētājs pamatsastāvā, tad sākuma laiks spēlē būs 0:00
-            int change_on = -1;             //default lietojam -1, debugging nolūkos
-            int change_off = -1;            
 
             foreach(StatsDB.player player in players)
             {
+                //nosakām spēlētāja uznākšanu un noiešanu no laukuma
+                //skatamies, vai spēlētājs pamatsastāvā, tad sākuma laiks spēlē būs 0:00
+                int change_on = -1;             //default lietojam -1, debugging nolūkos
+                int change_off = -1;
                 bool startCrew = false;
 
                 foreach (Speletajs pamatsastavaSpel in teamXML.Pamatsastavs)
                 {
-                    startCrew = true;
-
                     if (pamatsastavaSpel.Nr == player.no.ToString())
                     {
+                        startCrew = true;
                         change_on = 0;
                         change_off = (int)game.duration;
                     }

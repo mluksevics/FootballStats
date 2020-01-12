@@ -119,6 +119,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StatsDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="StatsDB\team.cs">
+      <DependentUpon>StatsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="StatsIO\OutputTopGoalies.cs" />
     <Compile Include="StatsIO\OutputTopPlayers.cs" />
     <Compile Include="StatsIO\OutputTopRefs.cs" />
@@ -127,9 +130,6 @@
     <Compile Include="StatsMain\Main.cs" />
     <Compile Include="StatsXML\parseXML.cs" />
     <Compile Include="StatsXML\XMLobjects.cs" />
-    <Compile Include="StatsDB\team.cs">
-      <DependentUpon>StatsDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\Conversion.cs" />
     <Compile Include="Utilities\Logger.cs" />
     <Compile Include="Utilities\ScoreCalc.cs" />
@@ -195,7 +195,6 @@
       <LastGenOutput>StatsDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

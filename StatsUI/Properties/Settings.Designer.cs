@@ -25,7 +25,7 @@ namespace StatsUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\Users\\User\\source\\repos\\FootballStats\\StatsDB.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\Users\\User\\source\\repos\\FootballStats\\StatsUI\\sqliteDB\\StatsDB.db")]
         public string ConnString {
             get {
                 return ((string)(this["ConnString"]));

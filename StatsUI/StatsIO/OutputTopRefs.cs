@@ -60,9 +60,12 @@ namespace StatsUI.StatsIO
                     rOutput.Varti = totalGoals;
                     rOutput.SpelesKopa = totalGames;
                     rOutput.Soda11m = total11mShots;
-                    rOutput.VidSodiSpele = Math.Round((double)totalPenalties / (double)totalGames, 2);
+
+                    if (totalGames == 0)
+                        rOutput.VidSodiSpele = Math.Round((double)totalPenalties / (double)totalGames, 2);
                     rOutput.VidVartiSpele = Math.Round((double)totalGoals / (double)totalGames, 2);
                     rOutput.VidLaiks1sodam = TimeSpan.FromSeconds(totalTime / totalPenalties);
+
                     outputList.Add(rOutput);
                 }
 
