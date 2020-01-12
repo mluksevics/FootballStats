@@ -191,20 +191,6 @@ namespace StatsUI.StatsIO
             return teamPlayers;
         }
 
-        public static int getGameDuration(Spele gameXML)
-        {
-            int gameDuration = 3600;
-            foreach (SpeleKomanda team in gameXML.Komanda)
-            {
-                foreach (SpeleKomandaVartiVG goal in team.Varti)
-                {
-                    if (Conversion.timeMMSStoSeconds(goal.Laiks) > 3600)
-                        gameDuration = Conversion.timeMMSStoSeconds(goal.Laiks);
-                }
-            }
-
-            return gameDuration;
-        }
 
         public static List<StatsDB.players_games> AddGamesPlayers(List<StatsDB.player> players, StatsDB.game game, Spele gameXML, SpeleKomanda teamXML)
         {
@@ -217,8 +203,12 @@ namespace StatsUI.StatsIO
 
             foreach(StatsDB.player player in players)
             {
+                bool startCrew = false;
+
                 foreach (Speletajs pamatsastavaSpel in teamXML.Pamatsastavs)
                 {
+                    startCrew = true;
+
                     if (pamatsastavaSpel.Nr == player.no.ToString())
                     {
                         change_on = 0;
@@ -260,7 +250,8 @@ namespace StatsUI.StatsIO
                     game = game,
                     player = player,
                     change_on = change_on,
-                    change_off = change_off
+                    change_off = change_off,
+                    startCrew = startCrew
                 };
 
                 GamePlayers.Add(players_Games);
@@ -341,5 +332,21 @@ namespace StatsUI.StatsIO
 
             return teamGoals;
         }
+
+        public static int getGameDuration(Spele gameXML)
+        {
+            int gameDuration = 3600;
+            foreach (SpeleKomanda team in gameXML.Komanda)
+            {
+                foreach (SpeleKomandaVartiVG goal in team.Varti)
+                {
+                    if (Conversion.timeMMSStoSeconds(goal.Laiks) > 3600)
+                        gameDuration = Conversion.timeMMSStoSeconds(goal.Laiks);
+                }
+            }
+
+            return gameDuration;
+        }
+
     }
 }

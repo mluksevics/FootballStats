@@ -30,6 +30,8 @@ namespace StatsUI.StatsDB
         public long team2 { get; set; }
         public Nullable<long> points_team1 { get; set; }
         public Nullable<long> points_team2 { get; set; }
+        public Nullable<long> goals_team1 { get; set; }
+        public Nullable<long> goals_team2 { get; set; }
         public Nullable<long> referee_main { get; set; }
         public Nullable<long> referee_assist1 { get; set; }
         public Nullable<long> referee_assis2 { get; set; }

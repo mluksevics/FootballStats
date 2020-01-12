@@ -10,7 +10,7 @@ namespace StatsUI.Utilities
     {
         public static int[] getScores(List<StatsDB.goal> team1goals, List<StatsDB.goal> team2goals)
         {
-            int[] scores = new int[2];
+            int[] scores = new int[4];
 
             //aprēķinu punktus katrai komandai
             int team1score = 0, team2score = 0;
@@ -38,6 +38,8 @@ namespace StatsUI.Utilities
 
             scores[0] = team1score;
             scores[1] = team2score;
+            scores[2] = team1goalCount;
+            scores[3] = team2goalCount;
             return scores;
         }
     }

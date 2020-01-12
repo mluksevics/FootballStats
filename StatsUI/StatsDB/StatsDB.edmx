@@ -16,6 +16,8 @@
           <Property Name="team2" Type="integer" Nullable="false" />
           <Property Name="points_team1" Type="integer" />
           <Property Name="points_team2" Type="integer" />
+          <Property Name="goals_team1" Type="integer" />
+          <Property Name="goals_team2" Type="integer" />
           <Property Name="referee_main" Type="integer" />
           <Property Name="referee_assist1" Type="integer" />
           <Property Name="referee_assis2" Type="integer" />
@@ -74,6 +76,7 @@
           <Property Name="player_id" Type="integer" />
           <Property Name="change_on" Type="integer" />
           <Property Name="change_off" Type="integer" />
+          <Property Name="startCrew" Type="bit" />
         </EntityType>
         <EntityType Name="referees">
           <Key>
@@ -505,6 +508,8 @@
           <Property Name="team2" Type="Int64" Nullable="false" />
           <Property Name="points_team1" Type="Int64" />
           <Property Name="points_team2" Type="Int64" />
+          <Property Name="goals_team1" Type="Int64" />
+          <Property Name="goals_team2" Type="Int64" />
           <Property Name="referee_main" Type="Int64" />
           <Property Name="referee_assist1" Type="Int64" />
           <Property Name="referee_assis2" Type="Int64" />
@@ -591,6 +596,7 @@
           <Property Name="player_id" Type="Int64" />
           <Property Name="change_on" Type="Int64" />
           <Property Name="change_off" Type="Int64" />
+          <Property Name="startCrew" Type="Boolean" />
           <NavigationProperty Name="game" Relationship="statsModel.FK_players_games_1_0" FromRole="players_games" ToRole="game" />
           <NavigationProperty Name="player" Relationship="statsModel.FK_players_games_0_0" FromRole="players_games" ToRole="player" />
         </EntityType>
@@ -859,6 +865,8 @@
                 <ScalarProperty Name="referee_assis2" ColumnName="referee_assis2" />
                 <ScalarProperty Name="referee_assist1" ColumnName="referee_assist1" />
                 <ScalarProperty Name="referee_main" ColumnName="referee_main" />
+                <ScalarProperty Name="goals_team2" ColumnName="goals_team2" />
+                <ScalarProperty Name="goals_team1" ColumnName="goals_team1" />
                 <ScalarProperty Name="points_team2" ColumnName="points_team2" />
                 <ScalarProperty Name="points_team1" ColumnName="points_team1" />
                 <ScalarProperty Name="team2" ColumnName="team2" />
@@ -919,6 +927,7 @@
           <EntitySetMapping Name="players_games">
             <EntityTypeMapping TypeName="statsModel.players_games">
               <MappingFragment StoreEntitySet="players_games">
+                <ScalarProperty Name="startCrew" ColumnName="startCrew" />
                 <ScalarProperty Name="change_off" ColumnName="change_off" />
                 <ScalarProperty Name="change_on" ColumnName="change_on" />
                 <ScalarProperty Name="player_id" ColumnName="player_id" />

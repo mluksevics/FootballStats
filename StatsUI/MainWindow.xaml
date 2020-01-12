@@ -5,10 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StatsUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="button" Content="Lasam no DB" HorizontalAlignment="Left" Margin="61,55,0,0" VerticalAlignment="Top" Width="103" Click="button_Click"/>
-        <Button x:Name="button1" Content="Delete DB" HorizontalAlignment="Left" Margin="197,55,0,0" VerticalAlignment="Top" Width="110" Click="button1_Click"/>
+        Title="Football Stats - Mārcis Lukšēvics" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Read XML from folder" Click="MenuItem_Click" />
+                <MenuItem Header="Clear DB data" Click="MenuItem_Click_1" />
+                <MenuItem Header="Data Statistics" Click="MenuItem_Click_3"/>
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuItem_Click_2" />
+            </MenuItem>
+        </Menu>
 
-    </Grid>
+        <TreeView Width="150" DockPanel.Dock="Left" HorizontalAlignment="Left">
+            <TreeViewItem Header="Statistika" IsExpanded="True">
+                <TreeViewItem Header="Top komandas" MouseDoubleClick="ViewTopTeams" />
+                <TreeViewItem Header="Top spēlētāji" />
+                <TreeViewItem Header="Komandas" IsExpanded="False">
+                    <TreeViewItem Header="Barcelona" />
+                </TreeViewItem>
+                <TreeViewItem Header="Vārtsargi" />
+                <TreeViewItem Header="Tiesneši" />
+            </TreeViewItem>
+        </TreeView>
+        <TabControl x:Name="Content" Background="#FFE5E5E5">
+            <TabItem x:Name="StatsTab" Header="Statistika" Visibility="Collapsed">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="StatsGrid" 
+                              ItemsSource="{Binding}"
+                              AutoGenerateColumns="True" 
+                              LoadingRow="DataGrid_LoadingRow"
+                              IsReadOnly="True"
+                              Margin="0"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="LogTab" Header="Log" Visibility="Visible">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="43*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="listBox" Margin="0,0,-0.4,0.4" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+
+
+
 </Window>

@@ -85,9 +85,12 @@ namespace StatsUI.StatsMain
                     }
 
                     //aprēķinam punktus katrai no komandām
-                    int[] scores = Utilities.ScoreCalc.getScores(team1goals, team2goals);
-                    game.points_team1 = scores[0];
-                    game.points_team2 = scores[1];
+                    int[] scores_goals = Utilities.ScoreCalc.getScores(team1goals, team2goals);
+                    game.points_team1 = scores_goals[0];
+                    game.points_team2 = scores_goals[1];
+                    game.goals_team1 = scores_goals[2];
+                    game.goals_team2 = scores_goals[3];
+
 
                     //saglabājam visus spēles datus datubāzē
                     context.SaveChanges();
@@ -103,18 +106,54 @@ namespace StatsUI.StatsMain
         {
             using (var context = new StatsDB.statsEntities())
             {
-                context.players_games.RemoveRange(context.players_games);
-                context.goals.RemoveRange(context.goals);
-                context.passes.RemoveRange(context.passes);
-                context.penalties.RemoveRange(context.penalties);
-                context.players.RemoveRange(context.players);
-                context.games.RemoveRange(context.games);
-                context.referees.RemoveRange(context.referees);
-                context.teams.RemoveRange(context.teams);
-                context.SaveChanges();
+                Utilities.Logger.Log("Starting to delete data from DB!");
+
+                try
+                {
+                    context.players_games.RemoveRange(context.players_games);
+                    context.goals.RemoveRange(context.goals);
+                    context.passes.RemoveRange(context.passes);
+                    context.penalties.RemoveRange(context.penalties);
+                    context.players.RemoveRange(context.players);
+                    context.games.RemoveRange(context.games);
+                    context.referees.RemoveRange(context.referees);
+                    context.teams.RemoveRange(context.teams);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Utilities.Logger.Log("Error!" + e.Message);
+                }
+
+                Utilities.Logger.Log("All data from DB deleted!");
+                CountDBdata();
+
 
             }
         }
+
+        public static void CountDBdata()
+        {
+            using (var context = new StatsDB.statsEntities())
+            {
+                try
+                {
+                    Utilities.Logger.Log("Games in DB: " + context.games.Count().ToString());
+                    Utilities.Logger.Log("Teams in DB: " + context.teams.Count().ToString());
+                    Utilities.Logger.Log("Players in DB: " + context.players.Count().ToString());
+                    Utilities.Logger.Log("Referees in DB: " + context.referees.Count().ToString());
+                    Utilities.Logger.Log("Goals in DB: " + context.goals.Count().ToString());
+                    Utilities.Logger.Log("Passes in DB: " + context.passes.Count().ToString());
+                    Utilities.Logger.Log("Penalties in DB: " + context.penalties.Count().ToString());
+                }
+                catch (Exception e)
+                {
+                    Utilities.Logger.Log("Error!" + e.Message);
+                }
+
+            }
+        }
+
     }
 }
 
