@@ -112,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StatsDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="StatsIO\XMLtoDB.cs" />
     <Compile Include="StatsXML\parseXML.cs" />
     <Compile Include="StatsXML\XMLobjects.cs" />
     <Compile Include="StatsDB\team.cs">
@@ -119,6 +120,7 @@
     </Compile>
     <Compile Include="Utilities\Conversion.cs" />
     <Compile Include="Utilities\Logger.cs" />
+    <Compile Include="Utilities\ScoreCalc.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
