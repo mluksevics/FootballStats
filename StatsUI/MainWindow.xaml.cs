@@ -43,7 +43,7 @@ namespace StatsUI
                 //apskatam katru spēli
                 foreach (Spele gameXML in gamesList)
                 {
-                    //definēju mainīgos, lai glabātu info par spēli.
+                    //definēju mainīgos, lai katras komandas iesistos vārtus
                     List<StatsDB.goal> team1goals = new List<StatsDB.goal>();
                     List<StatsDB.goal> team2goals = new List<StatsDB.goal>();
 
@@ -64,7 +64,6 @@ namespace StatsUI
 
                     //ierakstam splēli. Šis automātiski ieraksta saistītos laukus - tiesnešus, komandas
                     context.games.Add(game);
-                    //context.SaveChanges();
 
 
                     //apstrādājam datus katrā no komandām
@@ -73,30 +72,23 @@ namespace StatsUI
                         SpeleKomanda teamXML = gameXML.Komanda[i];
                         StatsDB.team teamDB = gameTeams[i];
 
-                        //Apstrādāju visus komandas spēlētāju
+                        //Apstrādāju visus komandas spēlētāju un ierakstam splētētāju-spēļu relationship
                         List<StatsDB.player> teamPlayers = StatsIO.XMLtoDB.AddPlayer(context, teamXML, teamDB);
-                        foreach (StatsDB.player player in teamPlayers)
-                        {
-                            if (context.Entry(player).State == System.Data.Entity.EntityState.Modified)
-                            { context.players.Add(player); }
-                        }
-
-                        //Apkopojam un ierakstam splētētāju-spēļu relationship
                         List<StatsDB.players_games> gameTeamPlayers = StatsIO.XMLtoDB.AddGamesPlayers(teamPlayers, game, gameXML, teamXML);
                         foreach (StatsDB.players_games players_Games in gameTeamPlayers)
                         {
-                            context.players_games.Add(players_Games);
+                            //atsevišķi players nerakstam - tie tiks automātiski ierakstīti
+                            //jo piesaistīti players<>games tabulai
+                            context.players_games.Add(players_Games); 
                         }
 
-                        //context.SaveChanges();
 
                         //Apstrādājam un ierakstam sodus
                         List<StatsDB.penalty> teamPenalties = StatsIO.XMLtoDB.AddPenalties(teamXML, game, teamPlayers);
                         foreach (StatsDB.penalty penalty in teamPenalties)
                         {
-                            context.penalties.Add(penalty);
+                            context.penalties.Add(penalty); 
                         }
-                        //context.SaveChanges();
 
 
                         //Apstrādājam un ierakstam vārdus un piespēles
@@ -104,13 +96,14 @@ namespace StatsUI
                         foreach (StatsDB.goal goal in teamGoals)
                         {
                             //pievienojam datubāzes entity framework
-                            context.goals.Add(goal);
+                            //atsevišķi piespēles nerakstam - tās ir piesaistītas vārtiem
+                            //un tiks automātiski ierakstītas
+                            context.goals.Add(goal);                           
 
                             //pievienojam vārtu "listei" kādai no komandām.
                             if (i == 0) { team1goals.Add(goal); }
                             if (i == 1) { team2goals.Add(goal); }
                         }
-                        //context.SaveChanges();
 
                     //beidzas cikls caur komandām
                     }
