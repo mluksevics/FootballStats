@@ -20,12 +20,12 @@
         <TreeView Width="150" DockPanel.Dock="Left" HorizontalAlignment="Left">
             <TreeViewItem Header="Statistika" IsExpanded="True">
                 <TreeViewItem Header="Top komandas" MouseDoubleClick="ViewTopTeams" />
-                <TreeViewItem Header="Top spēlētāji" />
+                <TreeViewItem Header="Top spēlētāji" MouseDoubleClick="ViewTopPlayers" />
                 <TreeViewItem Header="Komandas" IsExpanded="False">
                     <TreeViewItem Header="Barcelona" />
                 </TreeViewItem>
                 <TreeViewItem Header="Vārtsargi" />
-                <TreeViewItem Header="Tiesneši" />
+                <TreeViewItem Header="Tiesneši"  MouseDoubleClick="ViewTopReferees"/>
             </TreeViewItem>
         </TreeView>
         <TabControl x:Name="Content" Background="#FFE5E5E5">

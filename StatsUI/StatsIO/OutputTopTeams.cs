@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StatsUI.StatsIO
 {
-    public static class OuputStats
+    class OutputTopTeams
     {
         public static List<TeamOutput> TopTeams()
         {
@@ -19,7 +19,7 @@ namespace StatsUI.StatsIO
                 var allTeams = from t in context.teams
                                select t;
 
-                foreach(var tCurrent in allTeams)
+                foreach (var tCurrent in allTeams)
                 {
                     var tOutput = new TeamOutput();
                     int score = 0, pamU = 0, pamZ = 0, papU = 0, papZ = 0, goalsScored = 0, goalsLost = 0;
@@ -78,47 +78,27 @@ namespace StatsUI.StatsIO
             Utilities.Logger.Log("Komandu statistika nodota attēlošanai.");
 
             return outputList_sorted;
-        } 
-
-
-    }
-
-    public class TeamOutput
-    {
-        public TeamOutput()
-        {
-
         }
-        public String Nosaukums { get; set; }
-        public int Punkti { get; set; }
-        public int Varti_starpiba { get; set; }
-        public int Varti_iesisti { get; set; }
-        public int Varti_ielaisti { get; set; }
-        public int PamU { get; set; }
-        public int PamZ { get; set; }
-        public int PapU { get; set; }
-        public int PapZ { get; set; }
-        public int Spelataji { get; set; }
 
-    }
-
-    public class PlayerOutput
-    {
-        public PlayerOutput()
+        public class TeamOutput
         {
+            public TeamOutput()
+            {
+
+            }
+            public String Nosaukums { get; set; }
+            public int Punkti { get; set; }
+            public int Varti_starpiba { get; set; }
+            public int Varti_iesisti { get; set; }
+            public int Varti_ielaisti { get; set; }
+            public int PamU { get; set; }
+            public int PamZ { get; set; }
+            public int PapU { get; set; }
+            public int PapZ { get; set; }
+            public int Spelataji { get; set; }
 
         }
 
-        public String Vards { get; set; }
-        public String Uzvards { get; set; }
-        public int Nr { get; set; }
-        public String Komanda { get; set; }
-        public String Pozicija { get; set; }
-        public int Varti { get; set; }
-        public int Piespeles { get; set; }
-        public int Sodi { get; set; }
-        public String Laiks_Laukuma { get; set; }
-        public int SpelesPamatsast { get; set; }
 
     }
 }

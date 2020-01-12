@@ -119,7 +119,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StatsDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="StatsIO\OuputStats.cs" />
+    <Compile Include="StatsIO\OutputTopGoalies.cs" />
+    <Compile Include="StatsIO\OutputTopPlayers.cs" />
+    <Compile Include="StatsIO\OutputTopRefs.cs" />
+    <Compile Include="StatsIO\OutputTopTeams.cs" />
     <Compile Include="StatsIO\XMLtoDB.cs" />
     <Compile Include="StatsMain\Main.cs" />
     <Compile Include="StatsXML\parseXML.cs" />

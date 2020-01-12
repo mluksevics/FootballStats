@@ -85,8 +85,7 @@ namespace StatsUI
         {
             StatsTab.Visibility = Visibility.Visible;
             StatsTab.IsSelected = true;
-            Content.DataContext = StatsIO.OuputStats.TopTeams();
-
+            Content.DataContext = StatsIO.OutputTopTeams.TopTeams();
         }
 
         void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -102,6 +101,21 @@ namespace StatsUI
             //scroll to bottom of the listbox
             listBox.SelectedIndex = listBox.Items.Count - 1;
             listBox.ScrollIntoView(listBox.SelectedItem);
+
+        }
+
+        private void ViewTopPlayers(object sender, MouseButtonEventArgs e)
+        {
+            StatsTab.Visibility = Visibility.Visible;
+            StatsTab.IsSelected = true;
+            Content.DataContext = StatsIO.OutputTopPlayers.TopPlayers();
+        }
+
+        private void ViewTopReferees(object sender, MouseButtonEventArgs e)
+        {
+            StatsTab.Visibility = Visibility.Visible;
+            StatsTab.IsSelected = true;
+            Content.DataContext = StatsIO.OutputTopRefs.TopReferees();
 
         }
     }
